@@ -1,0 +1,239 @@
+
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #444444;
+  /* display: grid; */
+  /* grid-template-areas: "header"
+                        "main"
+                        "footer";
+  grid-template-rows: 1fr 5fr 2fr ; */
+}
+header{
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background-color: white;
+}
+
+a {
+  text-decoration: none;
+  color: #030303;
+}
+
+a:hover {
+  color: #ff000d;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway", sans-serif;
+}
+
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  
+}
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+.navbar li{
+  list-style: none;
+  margin-left: 1em;
+}
+.navbar li .active{
+  color:red;
+}
+.navbar li .getstarted{
+  padding: 0.6em;
+  border-radius: 0.6em;
+  background-color: red;
+  color:white
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+.carousel-{
+  display: flex;
+  height: 100vh;
+  padding-left: 8em;
+  padding-right:  8em;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/slide/slide-2.jpg");
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+.carousel- a{
+  color: white;
+  padding: 0.6em;
+  border-radius: 0.5em;
+  background-color: red;
+  z-index: 1;
+}
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+.img-info .container{
+  padding-top: 3em;
+  display: grid;
+  grid-template-areas:"texto1 texto2" ;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+}
+.img-info .container .texto1{
+  font-weight: 5em;
+  grid-area: texto1;
+  text-align: center;
+  margin-left: 13em;
+}
+.img-info .container .texto2{
+  grid-area: texto2;
+  text-align: justify;
+  margin-right: 12em;
+}
+.red{
+  color: red;
+}
+.img-info .container .texto2 ul li{
+  list-style: none;
+
+}
+
+.separation{
+  margin-top: 3em;
+  margin-bottom: 3em;
+  padding: 2em;
+  background-color: rgb(240, 240, 240);
+}
+
+.service .container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap:1em;
+  margin-left: 13em;
+  margin-right: 13em;
+}
+.service .container .service-item{
+  align-items: center;
+  display: flex;
+  margin-right: 1em;
+  background-color: rgb(243, 243, 243);
+  padding: 2em;
+}
+.service-item .info{
+  margin-left: 3em;
+}
+.portfolio{
+  margin-top: 5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.portfolio-menu .container-menu ul{
+  display: flex;
+  list-style: none;
+}
+.portfolio-menu .container-menu ul li{
+  padding-left: 2em;
+  text-align: center;
+}
+li.all{
+  background-color: red;
+  color: white;
+  border-radius: 0.3em;
+  
+}
+.portfolio .grid-galery img{
+  height: auto;
+  width: 30vw;
+}
+.portfolio .grid-galery{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.portfolio .grid-galery .galery-item{
+  
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+footer{
+  padding-top: 5em;
+  display: grid;
+  grid-template-areas: "content"
+  "copyright";
+}
+.footer-content{
+  color:white;
+  grid-area: content;
+  background-color: rgb(107, 107, 116);
+  display: flex;
+  justify-content: space-around;
+  padding: 2em 10em 2em 10em;
+}
+.footer-content a{
+  color: white;
+}
+form input.email{
+  padding: 0.6em;
+  border-radius: 0.3em;
+  border:  none;
+}
+form input.subscribe{
+  padding: 0.6em;
+  border-radius: 0.3em;
+  background-color: red;
+  border: none;
+}
+.column p{
+  flex-wrap: wrap;
+}
+.copy{
+  grid-area: copyright;
+  background-color: rgb(86, 89, 99);
+  color: white;
+  padding: 1em;
+  justify-items: center;
+}
+.social-profile {
+  display: flex;
+  align-items: center;
+}
+.social-icon {
+  color: white;
+  font-size: 20px;
+  margin-left: 15px;
+  transition: color 0.3s ease;
+}
+.social-icon:hover {
+  color: #0400eb;
+}
