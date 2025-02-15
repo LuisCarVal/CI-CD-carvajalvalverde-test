@@ -20,6 +20,7 @@ jobs:
         SSH_USER: ${{ secrets.SSH_USER }}
         SSH_PORT: ${{ secrets.SSH_PORT }}
         REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+        
       run: |
         echo "$SSH_PRIVATE_KEY" > private_key
         chmod 600 private_key
