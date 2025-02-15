@@ -1,0 +1,18 @@
+services:
+  laravel-app:
+    image: laravel-app
+    container_name: laravel-app
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8000:80"
+    working_dir:
+      /var/www/html
+    volumes:
+      - .:/var/www/html
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
