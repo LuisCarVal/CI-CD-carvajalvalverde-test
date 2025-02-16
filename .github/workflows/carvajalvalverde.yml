@@ -22,7 +22,7 @@ jobs:
         run: composer install --no-interaction --no-progress --prefer-dist
 
       - name: Run tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/pest
 
   build_and_deploy:
     runs-on: ubuntu-latest
