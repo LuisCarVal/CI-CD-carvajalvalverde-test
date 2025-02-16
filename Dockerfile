@@ -8,17 +8,14 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libfreetype6-dev \
     zip git npm \
-    #curl ca-certificates \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_mysql
 
 # Habilitar mod_rewrite de Apache para Laravel
 RUN a2enmod rewrite
 
-#Cambiar configuración de apache
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
-    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+# Copiar el archivo de configuración personalizado de Apache
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Copiar los archivos del proyecto al contenedor
 COPY . /var/www/html
@@ -26,17 +23,21 @@ COPY . /var/www/html
 # Establecer el directorio de trabajo
 WORKDIR /var/www/html
 
-#Instalar gestor de paquetes composer
+# Instalar gestor de paquetes composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-#Instalar las dependencias del proyecto laravel
+# Instalar las dependencias del proyecto Laravel
 RUN composer install
 
 # Cambiar permisos en las carpetas de almacenamiento y caché de Laravel
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-#Instalamos las dependencias con npm
-RUN npm i && npm run build
+# Instalar las dependencias con npm
+RUN npm install && npm run build
 
-#Cambiar al usuario www-data
+# Cambiar al usuario www-data
 USER www-data
+
+# Exponer el puerto 80
+EXPOSE 80
+
