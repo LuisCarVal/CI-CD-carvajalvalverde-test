@@ -27,7 +27,7 @@ jobs:
 
       - name: Run PHP_CodeSniffer (PSR Standards)
         run: |
-          vendor/bin/phpcs --standard=PSR12 src
+          vendor/bin/phpcs --standard=PSR12 .
       - name: Build Docker Image for Testing
         run: |
           docker build -t carvajalvalverde:test .
