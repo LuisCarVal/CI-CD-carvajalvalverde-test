@@ -1,56 +1,42 @@
+# Usa una imagen base de PHP con Apache
 FROM php:8.2-apache
 
-# Instalar dependencias necesarias
-RUN apt-get update && \
-    apt-get install -y \
+# Instala las extensiones necesarias de PHP para Laravel
+RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
-    libfreetype6-dev \
     libzip-dev \
-    unzip \
-    git \
-    curl \
-    nano \
+    libfreetype6-dev \
+    zip git npm \
+    #curl ca-certificates \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd zip pdo pdo_mysql
+    && docker-php-ext-install gd pdo pdo_mysql
 
-# Habilitar módulos necesarios de Apache
+# Habilitar mod_rewrite de Apache para Laravel
 RUN a2enmod rewrite
 
-# Instalar Composer
-COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
+#Cambiar configuración de apache
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
+    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Copiar los archivos del proyecto al contenedor
+COPY . /var/www/html
 
 # Establecer el directorio de trabajo
 WORKDIR /var/www/html
 
-# Copiar el proyecto Laravel al contenedor
-COPY . .
+#Instalar gestor de paquetes composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Ajustar permisos
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+#Instalar las dependencias del proyecto laravel
+RUN composer install
 
-# Instalar dependencias de Laravel
-RUN composer install --no-dev --optimize-autoloader
+# Cambiar permisos en las carpetas de almacenamiento y caché de Laravel
+RUN chown -R www-data:www-data /var/www/html
 
-# Configurar el VirtualHost para Laravel
-RUN bash -c 'cat << EOF > /etc/apache2/sites-available/000-default.conf
-<VirtualHost *:80>
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/html/public
-    <Directory /var/www/html/public>
-        AllowOverride All
-        Require all granted
-    </Directory>
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-EOF'
+#Instalamos las dependencias con npm
+RUN npm i && npm run build
 
-# Exponer el puerto 80
-EXPOSE 80
-
-# Comando por defecto para iniciar Apache
-CMD ["apache2-foreground"]
-
+#Cambiar al usuario www-data
+USER www-data
