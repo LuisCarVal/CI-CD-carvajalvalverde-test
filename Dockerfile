@@ -34,8 +34,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer install
 
 # Cambiar permisos en las carpetas de almacenamiento y caché de Laravel
-RUN chmod -R 775 /var/www/html/carvajalvalverde/storage /var/www/html/carvajalvalverde/bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html/carvajalvalverde/storage /var/www/html/carvajalvalverde/bootstrap/cache
+RUN chmod -R 775 /var/www/html/carvajalvalverde/storage /var/www/html/carvajalvalverde/bootstrap/cache
 
 # Instalar las dependencias con npm
 RUN npm install && npm run build
