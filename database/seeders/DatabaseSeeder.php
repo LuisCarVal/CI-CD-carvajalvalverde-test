@@ -210,7 +210,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Luis',
                 'email' => 'luis@luis.es',
-                'password' => Hash::make('2352')
+                'password' => Hash::make('35364821')
             ],
             [
                 'name' => 'Joaquin',
