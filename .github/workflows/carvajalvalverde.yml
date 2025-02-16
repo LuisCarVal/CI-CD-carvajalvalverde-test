@@ -23,7 +23,7 @@ jobs:
 
       - name: Run PHPStan (Static Analysis)
         run: |
-          vendor/bin/phpstan analyse src --level=5
+          vendor/bin/phpstan analyse . --level=5
 
       - name: Run PHP_CodeSniffer (PSR Standards)
         run: |
