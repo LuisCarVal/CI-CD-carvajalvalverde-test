@@ -4,7 +4,7 @@ FROM php:8.2-apache
 # Instala las extensiones necesarias de PHP para Laravel
 RUN apt-get update && apt-get install -y \
     php-mysqli \
-    php-pdo-mysql
+    php-pdo-mysql \
     libpng-dev \
     libjpeg-dev \
     libzip-dev \
