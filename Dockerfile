@@ -17,11 +17,12 @@ RUN a2enmod rewrite
 # Copiar el archivo de configuración personalizado de Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
+RUN mkdir -p /var/www/html/carvajalvalverde
 # Copiar los archivos del proyecto al contenedor
-COPY . /var/www/html
+COPY . /var/www/html/carvajalvalverde
 
 # Establecer el directorio de trabajo
-WORKDIR /var/www/html
+WORKDIR /var/www/html/carvajalvalverde
 
 # Instalar gestor de paquetes composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -30,8 +31,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer install
 
 # Cambiar permisos en las carpetas de almacenamiento y caché de Laravel
-RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/carvajalvalverde/storage /var/www/html/carvajalvalverde/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/carvajalvalverde/storage /var/www/html/carvajalvalverde/bootstrap/cache
 
 # Instalar las dependencias con npm
 RUN npm install && npm run build
