@@ -1,7 +1,6 @@
 services:
   laravel-app:
-    image: laravel-app
-    container_name: laravel-app
+    image: carvajalvalverde
     restart: unless-stopped
     tty: true
     ports:
@@ -10,9 +9,3 @@ services:
       /var/www/html
     volumes:
       - .:/var/www/html
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
