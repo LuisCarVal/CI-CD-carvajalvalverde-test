@@ -3,15 +3,13 @@ FROM php:8.2-apache
 
 # Instala las extensiones necesarias de PHP para Laravel
 RUN apt-get update && apt-get install -y \
-    php-mysqli \
-    php-pdo-mysql \
     libpng-dev \
     libjpeg-dev \
     libzip-dev \
     libfreetype6-dev \
     zip git npm \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql \
+    && docker-php-ext-install gd pdo pdo_mysql mysqli\
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
