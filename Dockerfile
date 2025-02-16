@@ -9,7 +9,10 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     zip git npm \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql
+    && docker-php-ext-install gd pdo pdo_mysql \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+    
 
 # Habilitar mod_rewrite de Apache para Laravel
 RUN a2enmod rewrite
@@ -17,7 +20,7 @@ RUN a2enmod rewrite
 # Copiar el archivo de configuración personalizado de Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
-RUN mkdir -p /var/www/html/carvajalvalverde
+RUN mkdir -p /var/www/html/carvajalvalverde/
 # Copiar los archivos del proyecto al contenedor
 COPY . /var/www/html/carvajalvalverde
 
