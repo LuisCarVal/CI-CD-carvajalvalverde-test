@@ -47,7 +47,7 @@ for i in $(seq 1 $NUM_NODES); do
     -e PORT=$PORT \
     -e CONTAINER_NAME=$CONTAINER_NAME \
     -p $PORT:80 \
-    -v .:/var/www/html \
+    -v .:/var/www/html/carvajalvalverde \
     $IMAGE_NAME
 
   echo "  server $CONTAINER_NAME 130.61.90.52:$PORT check" >> $HAPROXY_CFG
