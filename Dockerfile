@@ -35,7 +35,8 @@ RUN chown -R www-data:www-data /var/www/html \
 RUN composer install --no-dev --optimize-autoloader
 
 # Configurar el VirtualHost para Laravel
-RUN echo '<VirtualHost *:80>
+RUN bash -c 'cat << EOF > /etc/apache2/sites-available/000-default.conf
+<VirtualHost *:80>
     ServerAdmin webmaster@localhost
     DocumentRoot /var/www/html/public
     <Directory /var/www/html/public>
@@ -44,7 +45,8 @@ RUN echo '<VirtualHost *:80>
     </Directory>
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+</VirtualHost>
+EOF'
 
 # Exponer el puerto 80
 EXPOSE 80
