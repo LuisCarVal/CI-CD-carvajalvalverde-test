@@ -1,4 +1,3 @@
-# Usa una imagen base de PHP con Apache
 FROM php:8.2-apache
 
 # Instala las extensiones necesarias de PHP para Laravel
@@ -44,4 +43,5 @@ USER www-data
 
 # Exponer el puerto 80
 EXPOSE 80
+
 
